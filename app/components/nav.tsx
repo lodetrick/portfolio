@@ -1,4 +1,7 @@
+'use client'
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ThemeSwitch } from "./theme-switch";
 import { metaData } from "../config";
 
@@ -8,13 +11,24 @@ const navItems = {
   "/photos": { name: "Photos" },
 };
 
+function getTagline(path: string) {
+  if (path === "/") {
+    return "";
+  }
+  // If we are in the blog, return "\'s Blog", etc.
+  let clean_path = path.split("/")[1];
+  return "\'s " + clean_path;
+}
+
 export function Navbar() {
+  const pathname = usePathname();
+
   return (
     <nav className="lg:mb-16 mb-12 py-5">
       <div className="flex flex-col md:flex-row md:items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="text-3xl font-semibold tracking-tight">
-            {metaData.title}
+            {metaData.title}{getTagline(pathname)}
           </Link>
         </div>
         <div className="flex flex-row gap-4 mt-6 md:mt-0 md:ml-auto items-center">
