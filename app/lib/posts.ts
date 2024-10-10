@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { blogGroups } from "app/blog-config";
 
 type Metadata = {
   title: string;
@@ -50,8 +51,15 @@ function getMDXData(dir: string) {
   });
 }
 
+export function getBlogPostGroup(group: string) {
+  return getMDXData(path.join(process.cwd(), "content", group));
+}
+
 export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), "content"));
+  console.log("trying");
+  const o = Object.entries(blogGroups).map(([group, {title}]) => getMDXData(path.join(process.cwd(), "content", group))).flat();
+  console.log(o);
+  return o;
 }
 
 export function formatDate(date: string, includeRelative = false) {

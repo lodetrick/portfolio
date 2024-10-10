@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { formatDate, getBlogPosts } from "app/lib/posts";
+import { formatDate, getBlogPostGroup } from "app/lib/posts";
+import { blogGroups } from "app/blog-config";
 
 export const metadata = {
   title: "Blog",
@@ -9,22 +10,21 @@ export const metadata = {
 export default function BlogPosts() {
   return (
     <section>
-      <Blogs group="portfolio" title="Coding the Portfolio"/>
-      <Blogs group="starter" title="Starter Blogs"/>
+      {Object.entries(blogGroups).map(([group, {title}]) => (
+        <Blogs key={group} group={group} title={title}/>
+      ))}
     </section>
   )
 }
 
 function Blogs({group, title}) {
-  let allBlogs = getBlogPosts().filter(post => {
-    return post.slug.split("~")[0] === group
-  });
+  let allBlogs = getBlogPostGroup(group);
 
   return (
     <section>
       <h2 className="text-xl font-normal tracking-tight">{title}</h2>
       <hr className="mb-3" />
-      <div className="mb-8">
+      <div className="mb-6">
         {allBlogs
           .sort((a, b) => {
             if (
