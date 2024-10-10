@@ -8,9 +8,7 @@ export const metaData = {
 };
 
 export const socialLinks = {
-  twitter: "https://x.com/", // dont use
   github: "https://github.com/lodetrick/portfolio",
-  instagram: "https://www.instagram.com/", // should never be used
   linkedin: "https://www.linkedin.com/in/logan-detrick/",
   email: "mailto:logandetrick@gmail.com",
 };
