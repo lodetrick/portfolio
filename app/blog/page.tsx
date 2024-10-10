@@ -7,12 +7,24 @@ export const metadata = {
 };
 
 export default function BlogPosts() {
-  let allBlogs = getBlogPosts();
+  return (
+    <section>
+      <Blogs group="portfolio" title="Coding the Portfolio"/>
+      <Blogs group="starter" title="Starter Blogs"/>
+    </section>
+  )
+}
+
+function Blogs({group, title}) {
+  let allBlogs = getBlogPosts().filter(post => {
+    return post.slug.split("~")[0] === group
+  });
 
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-medium tracking-tight">Our Blog</h1>
-      <div>
+      <h2 className="text-xl font-normal tracking-tight">{title}</h2>
+      <hr className="mb-3" />
+      <div className="mb-8">
         {allBlogs
           .sort((a, b) => {
             if (
@@ -26,7 +38,7 @@ export default function BlogPosts() {
           .map((post) => (
             <Link
               key={post.slug}
-              className="flex flex-col space-y-1 mb-4 transition-opacity duration-200 hover:opacity-80"
+              className="flex flex-col space-y-1 mb-2 transition-opacity duration-200 hover:opacity-80"
               href={`/blog/${post.slug}`}
             >
               <div className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-2">
