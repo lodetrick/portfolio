@@ -56,10 +56,7 @@ export function getBlogPostGroup(group: string) {
 }
 
 export function getBlogPosts() {
-  console.log("trying");
-  const o = Object.entries(blogGroups).map(([group, {title}]) => getMDXData(path.join(process.cwd(), "content", group))).flat();
-  console.log(o);
-  return o;
+  return Object.entries(blogGroups).map(([group]) => getMDXData(path.join(process.cwd(), "content", group))).flat();
 }
 
 export function formatDate(date: string, includeRelative = false) {
