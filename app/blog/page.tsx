@@ -21,7 +21,7 @@ function Blogs({group, title}) {
   let allBlogs = getBlogPostGroup(group);
 
   return (
-    <section>
+    <div>
       <h2 className="text-xl font-normal tracking-tight">{title}</h2>
       <hr className="mb-3" />
       <div className="mb-6">
@@ -52,6 +52,6 @@ function Blogs({group, title}) {
             </Link>
           ))}
       </div>
-    </section>
+    </div>
   );
 }
