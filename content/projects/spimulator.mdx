@@ -1,0 +1,44 @@
+---
+title: "The SPIMULATOR"
+publishedAt: "2024-10-18"
+summary: "Simulating MIPS with Godot."
+tags: "Assembly"
+---
+
+<Image
+  src="/photos/spimulator-gui.png"
+  alt="SPIMULATOR GUI"
+  width={578}
+  height={350}
+/>
+
+In this project, I created a GUI for my MIPS emulator, which you can see above.
+In it, the user can enter assembly code on the left, which is then compiled by my program into 
+the relevant machine language, displayed in hex. The user can then choose to run the program, 
+which fully runs through the program, or choose to step through the program one instruction at 
+a time, with the registers updating in real time and a text description of the instruction executed 
+on the right. These registers can be changed so that they display their value in hex, binary, or 
+decimal, allowing for easy debugging.
+
+The program also has a space for output because syscall works. The supported syscall options 
+are: $v0 = 1, 4, 5, and 10. This allows the user to practice proper conventions like exiting
+ the program and printing numbers and strings. Along these lines, the user is able to enter 
+ static data into the ".data" section, with the data types ".byte", ".half", ".word", ".asciiz", 
+ and ".space" supported. There are only 1,024 bytes in the available memory, an arbitrary number 
+ I chose to prevent the program from taking up too much memory, while still having enough memory 
+ to do small programs.
+
+The supported core instructions are: addi, add, sub, and, lui, sll, srl, sra, slt, beq, bne, j, jal, 
+jr, mult, mflo, mfhi, addu, or, nor, addiu, lw, sw, andi, ori.
+
+Additionally, proper branching and jumping is supported, with branching using relative positions 
+and jumping absolute positions. Labels are able to be used to quickly name jump points, to easily 
+allow the assembler to deal with the possible change in locations.
+
+This is important because the assembler supports the three most frequent pseudoinstructions: 
+li, la, move. It does this by replacing the pseudoinstruction with the corresponding core 
+instructions in a preprocessing step, making so that the output of the assembler resembles 
+the output of another assembler like spim.
+
+Finally, the program has support for exceptions like errors occuring in assembling via incorrect 
+syntax in the inputted code, and integer overflow, which it then prints to the output console.
